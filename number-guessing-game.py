@@ -9,7 +9,7 @@ def menu():
         print("2.An actual game")
         print("3.Exit")
 
-        nd_choice = input("Choose an option, kind sir ")
+        nd_choice = input("Choose an option, kind sir: ")
         if nd_choice == "1":
             print(awesome_donut)
             print()
@@ -24,74 +24,52 @@ def menu():
             print("Bye!")
             break
 
-random_number = random.randint(1, 100)
-
 def diff_chooser():
     diff = input("Choose a difficulty. Type 'easy or 'hard': ")
     if diff == "easy":
-        diff_easy()
+        diff_easy(10)
     elif diff == "hard":
-        diff_hard()
+        diff_hard(5)
 
-def diff_easy():
-    attempts = 10
+def diff_easy(attempts):
+
     while True:
+        random_number = random.randint(1, 100)
         print(f"You have {attempts} attempts remaining to guess the number.")
-        guess = int(input("Make a guess: "))
-        if guess < random_number:
-            attempts -= 1
-            print("Too low!")
-            if attempts > 0:
-                print("Guess again!")
-                time.sleep(3)
-            if attempts == 0:
-                print("You've run out of guesses, you lose!")
-                print(f"I was thinking about {random_number}!")
-                time.sleep(3)
-                break
-        elif guess > random_number:
-            attempts -= 1
-            print("Too high!")
-            if attempts > 0:
-                print("Guess again!")
-            if attempts == 0:
-                print("You've run out of guesses, you lose!")
-                print(f"I was thinking about {random_number}!")
-                time.sleep(3)
-                break
-        elif guess == random_number:
-            print(f"Woah, you won! It was really : {random_number}! ")
-            time.sleep(3)
+        while True:
+            try:
+                guess = int(input("Make a guess: "))
+                if guess < random_number:
+                    attempts -= 1
+                    print("Too low!")
+                    if attempts > 0:
+                        print("Guess again!")
+                    if attempts == 0:
+                        print("You've run out of guesses, you lose!")
+                        print(f"I was thinking about {random_number}!")
+                        time.sleep(3)
+                        break
+                elif guess > random_number:
+                    attempts -= 1
+                    print("Too high!")
+                    if attempts > 0:
+                        print("Guess again!")
+                    if attempts == 0:
+                        print("You've run out of guesses, you lose!")
+                        print(f"I was thinking about {random_number}!")
+                        time.sleep(3)
+                        break
+                elif guess == random_number:
+                    print(f"Woah, you won! It was really : {random_number}! ")
+                    time.sleep(3)
+                    break
+            except ValueError:
+                print("You have to put in an actual number!")
+            except UnboundLocalError:
+                print("You have to put in an actual number!")
             break
 
 
-def diff_hard():
-    attempts = 5
-    while True:
-        print(f"You have {attempts} attempts remaining to guess the number.")
-        guess = int(input("Make a guess: "))
-        if guess < random_number:
-            attempts -= 1
-            print("Too low!")
-            if attempts > 0:
-                print("Guess again!")
-            if attempts == 0:
-                print("You've run out of guesses, you lose!")
-                print(f"I was thinking about {random_number}!")
-                time.sleep(3)
-                break
-        elif guess > random_number:
-            attempts -= 1
-            print("Too high!")
-            if attempts > 0:
-                print("Guess again!")
-            if attempts == 0:
-                print("You've run out of guesses, you lose!")
-                print(f"I was thinking about {random_number}!")
-                time.sleep(3)
-                break
-        elif guess == random_number:
-            print(f"Woah, you won! It was really: {random_number}!")
-            time.sleep(3)
-            break
+def diff_hard(attempts):
+    diff_easy(attempts)
 menu()
